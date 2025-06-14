@@ -1,0 +1,4 @@
+price =100
+marketcap = 5.0e9
+trend =-0.01
+risk =0.05
