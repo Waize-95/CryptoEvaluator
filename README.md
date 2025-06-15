@@ -13,12 +13,6 @@ You can also add or withdraw funds according to your needs. (Mind you! you canno
 Once youve added funds you can either ask the program for its own recommendations!
 You can buy the recommended coin or either you can buy a coin of your own choice its totally upto you!
 
-# AutoInvest
-
-If you want to buy the recommended coins, you can just select the program to AutoInvest! It will buy the coins according to your funds on its own.
-Or you can buy the coin of your own choice.
-You can also sell the coin (But you should own the coin and in the right quantity which you are about to sell otherwise you will be shown Error message).
-
 # Triggers
 
 The user also have the options to add triggers!
