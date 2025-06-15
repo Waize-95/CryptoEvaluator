@@ -75,9 +75,14 @@ int main() {
                 switch(choice) {
                     case 0:{
                         try {
-                            // Load coins (mock data for now)
-                            coins = loader.loadCoinsFromAPI();
-                            
+                            static int number=1;
+                            if(number<=1){
+                                coins = loader.loadCoinsFromAPI();
+                                number++;
+                            }
+                            else{
+                                loader.updatePricesWithVolatility();
+                            }
                             cout << "=== Loaded Cryptocurrency Data ===" << endl;
                             // Display all coin info
                             for (cryptoCoin* coin : coins) {

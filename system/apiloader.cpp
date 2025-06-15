@@ -1,4 +1,31 @@
 #include "apiloader.h"
+#include<ctime>
+#include<random>
+Dynamic_array<cryptoCoin*> coins;
+void APILoader::updatePricesWithVolatility(){
+
+    //mt19937 is Mersenne Twister random number generator, geneerates random number based on time
+    //static so it is initialzed only once no matter how many times i run the program
+    static mt19937 gen(static_cast<unsigned int>(std::time(nullptr)));
+    
+    //Defines a uniform distribution to generate random decimal values between -1.0 and 1.0.
+    uniform_real_distribution<double> dis(-1.0, 1.0); 
+    for(int i=0;i<coins.size();i++){
+        if(coins[i]!=nullptr){
+            double currentprice=coins[i]->getPrice();
+            double currentvol=coins[i]->getvolatility();
+            double ranfac=dis(gen);
+            double pricechangepercent=ranfac*currentvol;
+            double newprice=currentprice*(1.0+pricechangepercent);
+            //change the price to 1 percent of the initial price if it goes to zero.
+            if(newprice<0){
+                newprice=currentprice*0.01;
+            }
+            coins[i]->setPrice(newprice);
+        }
+    }
+
+}
 
 // Helper to categorize based on symbol prefix or known types
 cryptoCoin* APILoader::createCoinByCategory(const String& name, const String& symbol, double price,
@@ -19,13 +46,12 @@ cryptoCoin* APILoader::createCoinByCategory(const String& name, const String& sy
     }
 }
 
-   
 
-Dynamic_array<cryptoCoin*> coins;
+
+
 Dynamic_array<cryptoCoin*> APILoader::loadCoinsFromAPI() {
 
-    // In real-world, you'd fetch this from an API and parse JSON
-    // For now, this is mock data
+    
      for(int i = 0; i < coins.size(); i++) {
         delete coins[i];  // Delete the old coin objects
     }
@@ -56,7 +82,7 @@ Dynamic_array<cryptoCoin*> APILoader::loadCoinsFromAPI() {
     coins.push(createCoinByCategory("NEAR Protocol", "NEAR", 2.23, 2.74e9, -0.063, 0.1));
     coins.push(createCoinByCategory("VeChain", "VET", 0.035, 1.9e9, -0.021, 0.07));
 
-
+    
     return coins;
 }
 cryptoCoin* APILoader:: getcoinbyName(const String& name)const{

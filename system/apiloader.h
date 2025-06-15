@@ -15,6 +15,7 @@ public:
     // Utility: categorize based on symbol or name
     cryptoCoin* createCoinByCategory(const String& name, const String& symbol, double price,
                                      double marketCap, double trend, double volatility);
+    void updatePricesWithVolatility();
 
     cryptoCoin* getcoinbyName(const String& name)const;
 };
